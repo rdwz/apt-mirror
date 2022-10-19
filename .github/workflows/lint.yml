@@ -1,0 +1,19 @@
+name: Stack Linter
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Stack linter
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Run Perl Lint
+        env:
+          REPORT_ONLY: true
+          SHOW_ERRORS: true
+        run: bash <(curl -s https://raw.githubusercontent.com/CICDToolbox/perl-lint/master/pipeline.sh)
